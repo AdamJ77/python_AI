@@ -61,3 +61,4 @@ if __name__ == "__main__":
   information_value, time = knapsack.solve_knapsack_brute_force()
   print(information_value)
   print(time)
+  print("test")

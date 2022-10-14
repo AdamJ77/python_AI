@@ -5,9 +5,9 @@ from matplotlib import pyplot as plt
 import random
 import time
 
-weights = np.array([8, 3, 5, 2])
+weights = np.array([8, 3, 5, 2, 8, 3, 5, 2, 16, 8, 9, 6, 8, 3, 5, 2])
 capacity = 9
-profits = np.array([16, 8, 9, 6])
+profits = np.array([16, 8, 9, 6, 8, 3, 5, 2, 8, 3, 5, 2, 8, 3, 5, 2])
 
 
 class KnapSack:

@@ -46,11 +46,35 @@ class KnapSack:
     return {"Max profit": max_sum_profits, "Max weight": max_sum_weight, "Indexes": final_indexes}, running_time
 
   def solve_knapsack_pw_ratio(self):
-    pass
+    """
+    Returns the result of a heuristic function based on attributes weight, profit and capacity:
+    """
+    prof_to_weight_ratio_list = [(round(profit / weight, 2), profit, weight, index) for index, (profit, weight) in enumerate(zip(self.profits, self.weights))]
+    prof_to_weight_ratio_list = sorted(prof_to_weight_ratio_list, reverse = True ,key = lambda pw_list: pw_list[0])
+    max_sum_profits = 0
+    max_sum_weight = 0
+    indexes = []
+    for item in prof_to_weight_ratio_list:
+      if item[2] + max_sum_weight <= self.capacity:
+        max_sum_profits += item[1]
+        max_sum_weight += item[2]
+        indexes.append(item[3])
+      else:
+        break
+    return {"Max profit": max_sum_profits, "Max weight": max_sum_weight, "Indexes": sorted(indexes)}
+
+
+
+
+
+
+
 
 def get_plot_brute_force(knapsack, n_elements):
   """
-  does not work
+  Function that creates and saves a plot that is made of execution times based of n_elements and n_elements itself
+  :param knapsack: pointer to knapsack's class object
+  :param n_elements: number of elements to be added while executing solve_knapsack_brute_force() method
   """
   times = []
   n_profits = []
@@ -66,12 +90,13 @@ def get_plot_brute_force(knapsack, n_elements):
   plt.plot(n_profits, times, linewidth=2.0)
   plt.ylabel("Time")
   plt.xlabel("Number of elements")
-  plt.show()
   plt.savefig("Plot.png")
 
 
 if __name__ == "__main__":
   knapsack = KnapSack(profits, weights, capacity)
-  # information_value, time_run = knapsack.solve_knapsack_brute_force()
-  # print(information_value)
-  get_plot_brute_force(knapsack, 10)
+  # get_plot_brute_force(knapsack, 10)
+  # info, time = knapsack.solve_knapsack_brute_force()
+  # print(info)
+  info = knapsack.solve_knapsack_pw_ratio()
+  print(info)

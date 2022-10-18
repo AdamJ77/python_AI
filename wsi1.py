@@ -1,4 +1,3 @@
-from cmath import inf
 import numpy as np
 import itertools as it
 from matplotlib import pyplot as plt
@@ -12,15 +11,15 @@ profits = np.array([16, 8, 9, 6])
 
 
 class KnapSack:
-  def __init__(self, profits, weights, capacity):
+  def __init__(self, profits: np.array, weights: np.array, capacity: int):
     self.profits = profits
     self.weights = weights
     self.capacity = capacity
 
   def solve_knapsack_brute_force(self):
     """
-    might as well sort zip list with lambda on occurrences if 0 then stops already iterating, if 1 it still goes
-    is sorting actually faster than going through each 0?
+    
+    
     """
     start_time = time.process_time()
     variations = it.product(range(2), repeat=len(self.profits))
@@ -47,7 +46,7 @@ class KnapSack:
 
   def solve_knapsack_pw_ratio(self):
     """
-    Returns the result of a heuristic function based on attributes weight, profit and capacity:
+    Returns the result of a heuristic function based on profit/weight ratio and capacity
     """
     prof_to_weight_ratio_list = [(round(profit / weight, 2), profit, weight, index) for index, (profit, weight) in enumerate(zip(self.profits, self.weights))]
     prof_to_weight_ratio_list = sorted(prof_to_weight_ratio_list, reverse = True ,key = lambda pw_list: pw_list[0])
@@ -70,7 +69,7 @@ class KnapSack:
 
 
 
-def get_plot_brute_force(knapsack, n_elements):
+def get_plot_brute_force(knapsack: KnapSack, n_elements: np.array):
   """
   Function that creates and saves a plot that is made of execution times based of n_elements and n_elements itself
   :param knapsack: pointer to knapsack's class object
@@ -95,8 +94,8 @@ def get_plot_brute_force(knapsack, n_elements):
 
 if __name__ == "__main__":
   knapsack = KnapSack(profits, weights, capacity)
-  # get_plot_brute_force(knapsack, 10)
-  # info, time = knapsack.solve_knapsack_brute_force()
-  # print(info)
+  get_plot_brute_force(knapsack, 10)
+  info, time = knapsack.solve_knapsack_brute_force()
+  print(info)
   info = knapsack.solve_knapsack_pw_ratio()
   print(info)
